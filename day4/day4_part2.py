@@ -44,6 +44,7 @@ def get_most_often_min(gaurd):
     for minute in minutes:
         if minute not in mi:
             mi[minute] = []
+            mi[minute].append(1)
         elif minute in mi:
             mi[minute].append(1)
     longest = 0
@@ -52,7 +53,22 @@ def get_most_often_min(gaurd):
         if len(mi[minute]) > longest:
             longest = len(mi[minute])
             long_minute = minute
-    return long_minute
-gaurd = get_list_len()
-print(gaurd)
-print(get_most_often_min(gaurd))
+    return (gaurd, long_minute, longest)
+
+
+def get_most_frequent_asleep():
+    longest = 0
+    longest_guard = None
+    long_minute = None
+    for gaurd in gaurd_dict:
+        gaurd, longest_minute, frequency = get_most_often_min(gaurd)
+        if frequency > longest:
+            longest = frequency
+            longest_guard = gaurd
+            long_minute = longest_minute
+    return longest_guard, long_minute, longest
+
+
+
+answer = get_most_frequent_asleep()
+print("gaurd: " + str(answer[0]) + "\nlonest minute: " + str(answer[1]) +  "\nfrequncy: " + str(answer[2]))
